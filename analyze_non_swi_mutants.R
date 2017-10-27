@@ -78,10 +78,7 @@ create_gene_pvalue_df_by_tumor <- function(tumor, full_df){
 gene_df_by_tumor <- tumors %>% 
     map(create_gene_pvalue_df_by_tumor, full_df) %>% 
     bind_rows
-    
 
-
-setwd(output_dir)
 
 write_tsv(gene_df, 'bootstrap_results/non_swi_gene_pvalues.tsv')
 write_tsv(gene_df_by_tumor, 'bootstrap_results/non_swi_gene_pvalues_by_tumor.tsv')

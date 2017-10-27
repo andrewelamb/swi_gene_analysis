@@ -3,5 +3,6 @@ source_files/*
 CO_ME_results/*
 tmp/*
 bootstrap_results/*
-bootstrap_images/*
-bootstrap_images_non_swi/*
+images/*
+presentations*
+

@@ -3,6 +3,7 @@ library(tidyverse)
 library(magrittr)
 library(gplots)
 library(stringr)
+library(synapseClient)
 
 
 working_dir  <- "/home/aelamb/repos/swi_gene_analysis/"
@@ -105,8 +106,8 @@ df <- left_join(mut_sample_df, mutation_df) %>%
     mutate(Hugo_Symbol = as.factor(Hugo_Symbol)) %>% 
     as_data_frame
 
-write_tsv(df, "boostrap_results/bootstrap_scores.tsv")
-write_tsv(auc_df, "boostrap_results/auc_scores.tsv")
+write_tsv(df, "bootstrap_results/bootstrap_scores.tsv")
+write_tsv(auc_df, "bootstrap_results/auc_scores.tsv")
 
 df$Hugo_Symbol <- relevel(df$Hugo_Symbol, 'none')
 

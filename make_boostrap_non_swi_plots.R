@@ -4,23 +4,13 @@ library(gplots)
 library(stringr)
 library(data.table)
 library(qvalue)
+library(synapseClient)
 
-working_dir  <- "/home/aelamb/repos/swi_gene_analysis/"
+working_dir    <- "/home/aelamb/repos/swi_gene_analysis/"
+non_swi_file   <- "bootstrap_results/non_swi_gene_pvalues_by_tumor.tsv"
+bootstrap_file <- "bootstrap_results/bootstrap_scores.tsv"
+image_dir      <- "bootstrap_images_non_swi/"
 
-non_swi_file  <- "bootstrap_results/non_swi_gene_pvalues_by_tumor.tsv"
-bootstrap_file <- "bootstrap_results/bootstrap_results.RDS"
-mutations_file <- "source_files/tcga_pancancer_082115.vep.filter_whitelisted.maf"
-
-image_dir    <- "/home/aelamb/Projects/chromatin_remodling/images/"
-
-
-setwd(working_dir)
-
-
-working_dir  <- "/home/aelamb/repos/swi_gene_analysis/"
-input_file   <- "bootstrap_results/bootstrap_results.RDS"
-tumor_file   <- "source_files/results-20170523-150114.csv"
-image_dir    <- "bootstrap_images/"
 
 setwd(working_dir)
 synapseLogin()
@@ -38,7 +28,8 @@ non_swi_df <- non_swi_df %>%
     inset('qvalue', value = qvals) %>% 
     arrange(qvalue, pvalue)
 
-mut_df  <- mutations_file %>% 
+mut_df  <- synGet("syn4924181")@filePath %>% 
+    str_c('zcat ', .) %>% 
     fread(
         select = c("Tumor_Sample_Barcode", "Variant_Classification", "Hugo_Symbol"),
         skip = 1) %>% 

@@ -7,7 +7,7 @@ library(data.table)
 library(magrittr)
 library(stringr)
 
-synapseLogin('andrew.lamb@sagebase.org', 'sageBlam1979')
+synapseLogin()
 synapseCacheDir("./tmp/")
 
 # GENIE data ------------------------------------------------------------------
